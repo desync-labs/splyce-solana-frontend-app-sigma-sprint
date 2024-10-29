@@ -25,7 +25,7 @@ export const VaultFormWrapper = styled(FlexBox)`
 `;
 
 const VaultDetailForms = () => {
-  const [notLoading, setNotLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const {
     vaultPosition,
@@ -39,15 +39,17 @@ const VaultDetailForms = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setNotLoaded(vaultPosition && !vaultPositionLoading && !vaultLoading);
+      setIsLoaded(vaultPosition && !vaultPositionLoading && !vaultLoading);
     }, 300);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [vaultPosition, vaultPositionLoading, vaultLoading, setNotLoaded]);
+  }, [vaultPosition, vaultPositionLoading, vaultLoading, setIsLoaded]);
 
-  if (!notLoading) {
+  if (isTfVaultType && activeTfPeriod > 0) return null;
+
+  if (!isLoaded) {
     return (
       <VaultDepositPaper>
         <Typography variant="h3" sx={{ fontSize: isMobile ? "14px" : "16px" }}>
@@ -70,14 +72,13 @@ const VaultDetailForms = () => {
       </VaultDepositPaper>
     );
   }
-  if (isTfVaultType && activeTfPeriod > 0) return null;
 
   return (
     <VaultDepositPaper>
-      {notLoading && BigNumber(vaultPosition.balanceShares).isGreaterThan(0) ? (
+      {isLoaded && BigNumber(vaultPosition.balanceShares).isGreaterThan(0) ? (
         <VaultDetailManageForm />
       ) : !shutdown ? (
-        <VaultDetailDepositForm notLoading={notLoading} />
+        <VaultDetailDepositForm />
       ) : null}
     </VaultDepositPaper>
   );

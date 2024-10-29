@@ -68,10 +68,10 @@ const App: FC<PropsWithChildren<any>> = ({ children }) => {
           options: {
             projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PJ_ID,
             metadata: {
-              name: "Raydium",
-              description: "Raydium",
-              url: "https://raydium.io/",
-              icons: ["https://raydium.io/logo/logo-only-icon.svg"],
+              name: "Splyce",
+              description: "Splyce protocol",
+              url: "https://solana.splyce.finance/",
+              icons: ["https://solana.splyce.finance/logo/splyce-logo.png"],
             },
           },
         })

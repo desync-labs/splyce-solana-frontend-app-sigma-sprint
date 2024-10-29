@@ -54,6 +54,7 @@ const FaucetIndex: FC = () => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <VaultsNestedNav />

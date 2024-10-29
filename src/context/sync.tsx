@@ -8,8 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Connection } from "@solana/web3.js";
-import { defaultEndpoint } from "@/utils/network";
+import { connection } from "@/utils/network";
 
 type StakingProviderType = {
   children: ReactNode;
@@ -26,8 +25,6 @@ export const SyncContext = createContext<UseSyncContextReturn>(
 
 export const SyncProvider: FC<StakingProviderType> = ({ children }) => {
   const [lastTransactionBlock, setLastTransactionBlock] = useState<number>(0);
-
-  const connection = new Connection(defaultEndpoint, "confirmed");
 
   useEffect(() => {
     const getLatestSlot = async () => {

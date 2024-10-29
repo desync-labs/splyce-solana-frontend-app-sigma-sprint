@@ -1,6 +1,7 @@
 import { Box, Container, styled, Typography } from "@mui/material";
 import { BaseInfoBox } from "@/components/Base/Boxes/StyledBoxes";
 import { BaseInfoIcon } from "@/components/Base/Icons/StyledIcons";
+import { FC, ReactNode } from "react";
 
 const PageInfoBox = styled(BaseInfoBox)`
   background: #071f2e;
@@ -28,17 +29,27 @@ const PageInfoBox = styled(BaseInfoBox)`
   }
 `;
 
-const PageContainer = ({ children }) => {
+type PageContainerProps = {
+  children: ReactNode;
+  displayNotice?: boolean;
+};
+
+const PageContainer: FC<PageContainerProps> = ({
+  children,
+  displayNotice = true,
+}) => {
   return (
     <Container>
-      <PageInfoBox>
-        <BaseInfoIcon />
-        <Box flexDirection="column">
-          <Typography width="100%">
-            This is test launch, use at your own risk
-          </Typography>
-        </Box>
-      </PageInfoBox>
+      {displayNotice && (
+        <PageInfoBox>
+          <BaseInfoIcon />
+          <Box flexDirection="column">
+            <Typography width="100%">
+              This is test launch, use at your own risk
+            </Typography>
+          </Box>
+        </PageInfoBox>
+      )}
       {children}
     </Container>
   );

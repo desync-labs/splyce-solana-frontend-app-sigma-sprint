@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useMemo } from "react";
+import { FC, memo, useCallback, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
@@ -22,6 +22,8 @@ import VaultListItemManageModal from "@/components/Vaults/List/ManageVaultModal"
 
 import LockAquaSrc from "assets/svg/lock-aqua.svg";
 import LockSrc from "assets/svg/lock.svg";
+import useBridgeContext, { BridgeType } from "@/context/bridge";
+import { USDC_MINT_ADDRESSES } from "@/utils/addresses";
 
 export const VaultTitle = styled("div")`
   display: flex;
@@ -126,6 +128,7 @@ const VaultListItem: FC<VaultListItemProps> = ({
   const router = useRouter();
   const formattedApr = useApr(vaultItemData);
 
+  const { bridgeInfo, setBridgeInfo } = useBridgeContext();
   const {
     balanceEarned,
     manageVault,
@@ -148,6 +151,37 @@ const VaultListItem: FC<VaultListItemProps> = ({
   const redirectToVaultDetail = useCallback(() => {
     router.push(`/vaults/${vaultItemData.id}`);
   }, [vaultItemData.id]);
+
+  useEffect(() => {
+    if (
+      USDC_MINT_ADDRESSES.includes(vaultItemData.token.id.toLowerCase()) &&
+      bridgeInfo.type === BridgeType.CreateVaultDepositFromBridgedUSDC
+    ) {
+      if (
+        (!vaultPosition ||
+          !BigNumber(vaultPosition.balanceShares).isGreaterThan(0)) &&
+        !shutdown &&
+        activeTfPeriod !== 2 &&
+        !tfVaultDepositEndTimeLoading
+      ) {
+        setNewVaultDeposit(true);
+      } else if (
+        vaultPosition &&
+        BigNumber(vaultPosition.balanceShares).isGreaterThan(0) &&
+        !shutdown &&
+        activeTfPeriod !== 2
+      ) {
+        setManageVault(true);
+      }
+    }
+  }, [
+    vaultItemData,
+    bridgeInfo,
+    vaultPosition,
+    shutdown,
+    activeTfPeriod,
+    tfVaultDepositEndTimeLoading,
+  ]);
 
   const fxdPrice = 1;
 
@@ -340,7 +374,10 @@ const VaultListItem: FC<VaultListItemProps> = ({
               tfVaultLockEndDate={tfVaultLockEndDate}
               activeTfPeriod={activeTfPeriod}
               minimumDeposit={minimumDeposit}
-              onClose={() => setNewVaultDeposit(false)}
+              onClose={() => {
+                setNewVaultDeposit(false);
+                setBridgeInfo({});
+              }}
             />
           )
         );
@@ -357,7 +394,10 @@ const VaultListItem: FC<VaultListItemProps> = ({
               tfVaultLockEndDate={tfVaultLockEndDate}
               activeTfPeriod={activeTfPeriod}
               minimumDeposit={minimumDeposit}
-              onClose={() => setManageVault(false)}
+              onClose={() => {
+                setManageVault(false);
+                setBridgeInfo({});
+              }}
             />
           )
         );

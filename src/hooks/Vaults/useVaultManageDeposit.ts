@@ -21,6 +21,8 @@ import { formatNumber } from "@/utils/format";
 import { MAX_PERSONAL_DEPOSIT } from "@/hooks/Vaults/useVaultOpenDeposit";
 import useSyncContext from "@/context/sync";
 import { getVaultIndex } from "@/utils/getVaultIndex";
+import { USDC_MINT_ADDRESSES } from "@/utils/addresses";
+import useBridgeContext, { BridgeType } from "@/context/bridge";
 
 export const defaultValues = {
   formToken: "",
@@ -43,6 +45,7 @@ const useVaultManageDeposit = (
   const { publicKey } = useWallet();
   const anchorWallet = useAnchorWallet() as AnchorWallet;
   const { lastTransactionBlock, setLastTransactionBlock } = useSyncContext();
+  const { bridgeInfo } = useBridgeContext();
 
   const methods = useForm({
     defaultValues,
@@ -57,6 +60,16 @@ const useVaultManageDeposit = (
     watch,
     formState: { errors },
   } = methods;
+
+  useEffect(() => {
+    if (
+      USDC_MINT_ADDRESSES.includes(token.id.toLowerCase()) &&
+      bridgeInfo.type === BridgeType.CreateVaultDepositFromBridgedUSDC
+    ) {
+      console.log("set value", bridgeInfo.amount);
+      setValue("formToken", bridgeInfo.amount);
+    }
+  }, [bridgeInfo, token, setValue]);
 
   const [formType, setFormType] = useState<FormType>(
     shutdown ? FormType.WITHDRAW : FormType.DEPOSIT

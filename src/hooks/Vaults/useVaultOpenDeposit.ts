@@ -19,6 +19,8 @@ import {
 import useSyncContext from "@/context/sync";
 import { formatNumber } from "@/utils/format";
 import { getVaultIndex } from "@/utils/getVaultIndex";
+import useBridgeContext, { BridgeType } from "@/context/bridge";
+import { USDC_MINT_ADDRESSES } from "@/utils/addresses";
 
 export const MAX_PERSONAL_DEPOSIT = 50000;
 export const defaultValues = {
@@ -31,6 +33,7 @@ const useVaultOpenDeposit = (vault: IVault, onClose: () => void) => {
   const { publicKey, wallet } = useWallet();
   const anchorWallet = useAnchorWallet();
   const { lastTransactionBlock, setLastTransactionBlock } = useSyncContext();
+  const { bridgeInfo } = useBridgeContext();
 
   const [walletBalance, setWalletBalance] = useState<string>("0");
   const [isWalletFetching, setIsWalletFetching] = useState<boolean>(false);
@@ -52,6 +55,16 @@ const useVaultOpenDeposit = (vault: IVault, onClose: () => void) => {
 
   const deposit = watch("deposit");
   const sharedToken = watch("sharedToken");
+
+  useEffect(() => {
+    if (
+      USDC_MINT_ADDRESSES.includes(token.id.toLowerCase()) &&
+      bridgeInfo.type === BridgeType.CreateVaultDepositFromBridgedUSDC
+    ) {
+      console.log("set value", bridgeInfo.amount);
+      setValue("deposit", bridgeInfo.amount);
+    }
+  }, [bridgeInfo, token, setValue]);
 
   const getVaultTokenBalance = useCallback(async () => {
     if (!publicKey || !token?.id) {

@@ -28,11 +28,6 @@ export const getDefaultVaultTitle = (
   asset = "tspUSD",
   vaultId: string
 ) => {
-  console.log({
-    vaultType,
-    asset,
-    vaultId,
-  });
   const vaultTitles: { [key: string]: ITitleItem } = sessionStorage.getItem(
     "vaultTitles"
   )
