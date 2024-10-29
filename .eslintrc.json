@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "rules": {
+    "@typescript-eslint/no-use-before-define": "off",
+
+    // Defer to Prettier
+    "@typescript-eslint/indent": "off",
+
+    "no-async-promise-executor": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    "capitalized-comments": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/ban-types": "off",
+
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+
+    "no-case-declarations": "off",
+    "no-constant-condition": "off"
+  }
+}

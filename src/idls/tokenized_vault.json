@@ -1,0 +1,2031 @@
+{
+  "address": "5R6bVKZfag4X9vW4nek6UNP8XXwH7cPaVohyAo1xfVEU",
+  "metadata": {
+    "name": "tokenized_vault",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_strategy",
+      "discriminator": [
+        64,
+        123,
+        127,
+        227,
+        192,
+        234,
+        198,
+        20
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "strategy"
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "max_debt",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  100,
+                  101,
+                  114,
+                  108,
+                  121,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shares_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_shares_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "drop_role",
+      "discriminator": [
+        110,
+        224,
+        228,
+        85,
+        211,
+        30,
+        244,
+        236
+      ],
+      "accounts": [
+        {
+          "name": "roles",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "roles_admin",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108,
+                  95,
+                  97,
+                  100,
+                  109,
+                  105,
+                  110,
+                  95,
+                  114,
+                  111,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user"
+        }
+      ],
+      "args": [
+        {
+          "name": "role",
+          "type": {
+            "defined": {
+              "name": "Role"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "init_role_admin",
+      "discriminator": [
+        116,
+        196,
+        113,
+        92,
+        96,
+        145,
+        49,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "roles_admin",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108,
+                  95,
+                  97,
+                  100,
+                  109,
+                  105,
+                  110,
+                  95,
+                  114,
+                  111,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_vault",
+      "discriminator": [
+        77,
+        79,
+        85,
+        150,
+        33,
+        217,
+        52,
+        106
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "underlying_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  100,
+                  101,
+                  114,
+                  108,
+                  121,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "underlying_mint",
+          "writable": true
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u64"
+        },
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "VaultConfig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "init_vault_shares",
+      "discriminator": [
+        130,
+        72,
+        70,
+        251,
+        17,
+        251,
+        201,
+        124
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shares_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "metadata",
+          "writable": true
+        },
+        {
+          "name": "shares_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "metadata_program",
+          "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u64"
+        },
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "SharesConfig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "process_report",
+      "discriminator": [
+        200,
+        88,
+        217,
+        115,
+        78,
+        122,
+        113,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "strategy"
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shares_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fee_shares_recipient",
+          "writable": true
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "redeem",
+      "discriminator": [
+        184,
+        12,
+        86,
+        149,
+        70,
+        196,
+        97,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  100,
+                  101,
+                  114,
+                  108,
+                  121,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shares_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_shares_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "strategy_program",
+          "address": "FeMChq4ZCFP8UstbyHnVyme3ATa2vtteLNCwms4jLMAj"
+        }
+      ],
+      "args": [
+        {
+          "name": "shares",
+          "type": "u64"
+        },
+        {
+          "name": "max_loss",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_map",
+          "type": {
+            "defined": {
+              "name": "AccountsMap"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "remove_strategy",
+      "discriminator": [
+        185,
+        238,
+        33,
+        91,
+        134,
+        210,
+        97,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "strategy",
+          "type": "pubkey"
+        },
+        {
+          "name": "force",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_deposit_limit",
+      "discriminator": [
+        28,
+        241,
+        137,
+        66,
+        172,
+        101,
+        48,
+        229
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_role",
+      "discriminator": [
+        77,
+        78,
+        62,
+        233,
+        192,
+        61,
+        199,
+        190
+      ],
+      "accounts": [
+        {
+          "name": "roles",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "roles_admin",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  116,
+                  111,
+                  99,
+                  111,
+                  108,
+                  95,
+                  97,
+                  100,
+                  109,
+                  105,
+                  110,
+                  95,
+                  114,
+                  111,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "role",
+          "type": {
+            "defined": {
+              "name": "Role"
+            }
+          }
+        },
+        {
+          "name": "user",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "shutdown_vault",
+      "discriminator": [
+        36,
+        219,
+        106,
+        54,
+        165,
+        85,
+        81,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_debt",
+      "discriminator": [
+        213,
+        144,
+        83,
+        12,
+        168,
+        76,
+        158,
+        45
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  100,
+                  101,
+                  114,
+                  108,
+                  121,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "strategy",
+          "writable": true
+        },
+        {
+          "name": "strategy_token_account",
+          "writable": true
+        },
+        {
+          "name": "roles",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  108,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "strategy_program",
+          "address": "FeMChq4ZCFP8UstbyHnVyme3ATa2vtteLNCwms4jLMAj"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  100,
+                  101,
+                  114,
+                  108,
+                  121,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shares_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_shares_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "strategy_program",
+          "address": "FeMChq4ZCFP8UstbyHnVyme3ATa2vtteLNCwms4jLMAj"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "max_loss",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_map",
+          "type": {
+            "defined": {
+              "name": "AccountsMap"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AccountRoles",
+      "discriminator": [
+        25,
+        230,
+        229,
+        88,
+        31,
+        135,
+        177,
+        142
+      ]
+    },
+    {
+      "name": "RolesAdmin",
+      "discriminator": [
+        26,
+        63,
+        167,
+        233,
+        152,
+        86,
+        181,
+        14
+      ]
+    },
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "StrategyReportedEvent",
+      "discriminator": [
+        112,
+        91,
+        46,
+        201,
+        138,
+        154,
+        51,
+        114
+      ]
+    },
+    {
+      "name": "UpdatedCurrentDebtForStrategyEvent",
+      "discriminator": [
+        220,
+        60,
+        182,
+        251,
+        191,
+        72,
+        215,
+        147
+      ]
+    },
+    {
+      "name": "VaultAddStrategyEvent",
+      "discriminator": [
+        246,
+        91,
+        229,
+        44,
+        239,
+        26,
+        28,
+        150
+      ]
+    },
+    {
+      "name": "VaultDepositEvent",
+      "discriminator": [
+        187,
+        186,
+        196,
+        189,
+        175,
+        44,
+        10,
+        64
+      ]
+    },
+    {
+      "name": "VaultInitEvent",
+      "discriminator": [
+        173,
+        160,
+        208,
+        103,
+        85,
+        78,
+        229,
+        205
+      ]
+    },
+    {
+      "name": "VaultUpdateDepositLimitEvent",
+      "discriminator": [
+        19,
+        98,
+        248,
+        35,
+        149,
+        145,
+        56,
+        26
+      ]
+    },
+    {
+      "name": "VaultWithdrawlEvent",
+      "discriminator": [
+        13,
+        122,
+        111,
+        4,
+        123,
+        191,
+        191,
+        248
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "VaultShutdown",
+      "msg": "Vault was shutdown"
+    },
+    {
+      "code": 6001,
+      "name": "ZeroValue",
+      "msg": "Zero value"
+    },
+    {
+      "code": 6002,
+      "name": "CustomError",
+      "msg": "Custom error message"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidStrategyData",
+      "msg": "Invalid strategy data"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidStrategy",
+      "msg": "Invalid strategy"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidAccountType",
+      "msg": "Invalid account type"
+    },
+    {
+      "code": 6006,
+      "name": "StrategiesFull",
+      "msg": "Max strategies reached"
+    },
+    {
+      "code": 6007,
+      "name": "StrategyAlreadyAdded",
+      "msg": "Strategy already added"
+    },
+    {
+      "code": 6008,
+      "name": "StrategyNotFound",
+      "msg": "Strategy not found"
+    },
+    {
+      "code": 6009,
+      "name": "InactiveStrategy",
+      "msg": "Strategy not active"
+    },
+    {
+      "code": 6010,
+      "name": "SameDebt",
+      "msg": "Debt is the same"
+    },
+    {
+      "code": 6011,
+      "name": "CannotWithdraw",
+      "msg": "Cannot withdraw"
+    },
+    {
+      "code": 6012,
+      "name": "CannotDeposit",
+      "msg": "Cannot deposit"
+    },
+    {
+      "code": 6013,
+      "name": "UnrealisedLosses",
+      "msg": "Debt cannot be reduced because of unrealised losses"
+    },
+    {
+      "code": 6014,
+      "name": "DebtHigherThanMaxDebt",
+      "msg": "Debt cannot be higher than max debt"
+    },
+    {
+      "code": 6015,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient funds"
+    },
+    {
+      "code": 6016,
+      "name": "MinDepositNotReached",
+      "msg": "Min deposit not reached"
+    },
+    {
+      "code": 6017,
+      "name": "ExceedDepositLimit",
+      "msg": "Exceed deposit limit"
+    },
+    {
+      "code": 6018,
+      "name": "InsufficientShares",
+      "msg": "Insufficient shares"
+    },
+    {
+      "code": 6019,
+      "name": "IsNotVaultStrategy",
+      "msg": "Is not a vault strategy"
+    },
+    {
+      "code": 6020,
+      "name": "ExceedWithdrawLimit",
+      "msg": "Exceed withdraw limit"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidAccountPairs",
+      "msg": "Invalid strategy / token account pairs"
+    },
+    {
+      "code": 6022,
+      "name": "TooMuchLoss",
+      "msg": "Loss is too high"
+    },
+    {
+      "code": 6023,
+      "name": "StrategyHasDebt",
+      "msg": "Strategy has debt"
+    }
+  ],
+  "types": [
+    {
+      "name": "AccountRoles",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "account",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_vaults_admin",
+            "type": "bool"
+          },
+          {
+            "name": "is_reporting_manager",
+            "type": "bool"
+          },
+          {
+            "name": "is_whitelisted",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountsIndexes",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "strategy_acc",
+            "type": "u64"
+          },
+          {
+            "name": "strategy_token_account",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_accounts_to_strategies",
+            "type": {
+              "vec": "u64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountsMap",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "accounts_map",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "AccountsIndexes"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Role",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Whitelisted"
+          },
+          {
+            "name": "VaultsAdmin"
+          },
+          {
+            "name": "ReportingManager"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RolesAdmin",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "account",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SharesConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StrategyData",
+      "serialization": "bytemuckunsafe",
+      "repr": {
+        "kind": "rust",
+        "packed": true
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "key",
+            "type": "pubkey"
+          },
+          {
+            "name": "current_debt",
+            "type": "u64"
+          },
+          {
+            "name": "max_debt",
+            "type": "u64"
+          },
+          {
+            "name": "last_update",
+            "type": "i64"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StrategyReportedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "strategy_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "gain",
+            "type": "u64"
+          },
+          {
+            "name": "loss",
+            "type": "u64"
+          },
+          {
+            "name": "current_debt",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fees",
+            "type": "u64"
+          },
+          {
+            "name": "total_fees",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdatedCurrentDebtForStrategyEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "strategy_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "total_idle",
+            "type": "u64"
+          },
+          {
+            "name": "total_debt",
+            "type": "u64"
+          },
+          {
+            "name": "new_debt",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "serialization": "bytemuckunsafe",
+      "repr": {
+        "kind": "rust",
+        "packed": true
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "index_buffer",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "shares_bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "key",
+            "type": "pubkey"
+          },
+          {
+            "name": "underlying_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "underlying_token_acc",
+            "type": "pubkey"
+          },
+          {
+            "name": "underlying_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "performance_fee",
+            "type": "u64"
+          },
+          {
+            "name": "total_debt",
+            "type": "u64"
+          },
+          {
+            "name": "total_shares",
+            "type": "u64"
+          },
+          {
+            "name": "minimum_total_idle",
+            "type": "u64"
+          },
+          {
+            "name": "total_idle",
+            "type": "u64"
+          },
+          {
+            "name": "deposit_limit",
+            "type": "u64"
+          },
+          {
+            "name": "min_user_deposit",
+            "type": "u64"
+          },
+          {
+            "name": "is_shutdown",
+            "type": "bool"
+          },
+          {
+            "name": "profit_max_unlock_time",
+            "type": "u64"
+          },
+          {
+            "name": "full_profit_unlock_date",
+            "type": "u64"
+          },
+          {
+            "name": "profit_unlocking_rate",
+            "type": "u64"
+          },
+          {
+            "name": "last_profit_update",
+            "type": "i64"
+          },
+          {
+            "name": "strategies",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "StrategyData"
+                  }
+                },
+                10
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultAddStrategyEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "strategy_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "current_debt",
+            "type": "u64"
+          },
+          {
+            "name": "max_debt",
+            "type": "u64"
+          },
+          {
+            "name": "last_update",
+            "type": "i64"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "deposit_limit",
+            "type": "u64"
+          },
+          {
+            "name": "min_user_deposit",
+            "type": "u64"
+          },
+          {
+            "name": "performance_fee",
+            "type": "u64"
+          },
+          {
+            "name": "profit_max_unlock_time",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultDepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "total_debt",
+            "type": "u64"
+          },
+          {
+            "name": "total_idle",
+            "type": "u64"
+          },
+          {
+            "name": "total_share",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "share",
+            "type": "u64"
+          },
+          {
+            "name": "token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultInitEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "underlying_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "underlying_token_acc",
+            "type": "pubkey"
+          },
+          {
+            "name": "underlying_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "share_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_token_acc",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "deposit_limit",
+            "type": "u64"
+          },
+          {
+            "name": "min_user_deposit",
+            "type": "u64"
+          },
+          {
+            "name": "performance_fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultUpdateDepositLimitEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "new_limit",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultWithdrawlEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault_index",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "total_idle",
+            "type": "u64"
+          },
+          {
+            "name": "total_share",
+            "type": "u64"
+          },
+          {
+            "name": "assets_to_transfer",
+            "type": "u64"
+          },
+          {
+            "name": "shares_to_burn",
+            "type": "u64"
+          },
+          {
+            "name": "token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}
