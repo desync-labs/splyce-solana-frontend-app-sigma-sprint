@@ -28,7 +28,6 @@ export const SyncProvider: FC<StakingProviderType> = ({ children }) => {
 
   useEffect(() => {
     const getLatestSlot = async () => {
-      if (connection === null) return;
       const slot = await connection.getSlot();
       setLastTransactionBlock(slot);
       console.log("INIT Last block:", slot);

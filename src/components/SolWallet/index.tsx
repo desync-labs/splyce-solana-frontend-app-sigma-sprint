@@ -45,7 +45,7 @@ const SolWallet = () => {
   const handleShowWalletDrawer = () => setIsWalletDrawerShown(true);
   const onClose = () => setIsWalletDrawerShown(false);
 
-  if (connected && publicKey && wallet)
+  if (connected && publicKey && wallet) {
     return (
       <>
         <WalletInfoModal
@@ -71,6 +71,8 @@ const SolWallet = () => {
         </FlexBox>
       </>
     );
+  }
+
   return (
     <>
       <FlexBox sx={{ justifyContent: "flex-end" }}>

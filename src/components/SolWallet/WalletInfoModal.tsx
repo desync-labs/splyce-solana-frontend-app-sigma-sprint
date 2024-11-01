@@ -125,7 +125,7 @@ const WalletInfoModal = ({
   useEffect(() => {
     getUserSolanaBalance(pubKey)
       .then((balance) => {
-        setSolBalance(balance);
+        setSolBalance(balance as number);
       })
       .catch((err) => {
         console.error("Error get balance: ", err);

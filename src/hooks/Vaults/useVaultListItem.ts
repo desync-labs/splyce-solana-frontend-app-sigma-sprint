@@ -18,6 +18,7 @@ import { defaultNetWork } from "@/utils/network";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getTfVaultPeriods, previewRedeem } from "@/utils/TempSdkMethods";
 import { getVaultIndex } from "@/utils/getVaultIndex";
+import useAnchorProviderContext from "@/provider/anchorProvider";
 
 interface UseVaultListItemProps {
   vaultPosition: IVaultPosition | null | undefined;
@@ -66,7 +67,8 @@ const useVaultListItem = ({ vaultPosition, vault }: UseVaultListItemProps) => {
   const [minimumDeposit, setMinimumDeposit] = useState<number>(0.0000000001);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState<boolean>(false);
 
-  const { publicKey, wallet } = useWallet();
+  const { publicKey } = useWallet();
+  const { vaultProgram, strategyProgram } = useAnchorProviderContext();
 
   const [loadPositionTransactions, { loading: transactionsLoading }] =
     useLazyQuery(VAULT_POSITION_TRANSACTIONS, {
@@ -177,7 +179,7 @@ const useVaultListItem = ({ vaultPosition, vault }: UseVaultListItemProps) => {
       setTfVaultDepositEndTimeLoading(true);
       setTfVaultLockEndTimeLoading(true);
 
-      getTfVaultPeriods(getVaultIndex(vault.id))
+      getTfVaultPeriods(getVaultIndex(vault.id), vaultProgram, strategyProgram)
         .then((periods) => {
           const { depositPeriodEnds, lockPeriodEnds } = periods;
           setTfVaultDepositEndDate(depositPeriodEnds.toString());
@@ -193,6 +195,8 @@ const useVaultListItem = ({ vaultPosition, vault }: UseVaultListItemProps) => {
     isTfVaultType,
     setTfVaultDepositEndTimeLoading,
     setTfVaultLockEndTimeLoading,
+    vaultProgram,
+    strategyProgram,
   ]);
 
   useEffect(() => {

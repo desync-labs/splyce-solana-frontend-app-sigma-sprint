@@ -36,6 +36,7 @@ import useSyncContext from "@/context/sync";
 import { TRADE_FI_VAULT_REPORT_STEP } from "@/utils/Constants";
 import { useAprNumber } from "@/hooks/Vaults/useApr";
 import { getVaultIndex } from "@/utils/getVaultIndex";
+import useAnchorProviderContext from "@/provider/anchorProvider";
 
 const VAULT_REPORTS_PER_PAGE = 1000;
 
@@ -61,6 +62,7 @@ const useVaultDetail = () => {
   const router = useRouter();
   const { publicKey } = useWallet();
   const { lastTransactionBlock } = useSyncContext();
+  const { vaultProgram, strategyProgram } = useAnchorProviderContext();
 
   const vaultId = router.query.vaultId as string;
   const tab = router.query.tab as string;
@@ -613,7 +615,7 @@ const useVaultDetail = () => {
       setTfVaultDepositEndTimeLoading(true);
       setTfVaultLockEndTimeLoading(true);
 
-      getTfVaultPeriods(getVaultIndex(vaultId))
+      getTfVaultPeriods(getVaultIndex(vaultId), vaultProgram, strategyProgram)
         .then((periods) => {
           const { depositPeriodEnds, lockPeriodEnds } = periods;
           setTfVaultDepositEndDate(depositPeriodEnds.toString());
@@ -629,6 +631,8 @@ const useVaultDetail = () => {
     isTfVaultType,
     setTfVaultDepositEndTimeLoading,
     setTfVaultLockEndTimeLoading,
+    vaultProgram,
+    strategyProgram,
   ]);
 
   useEffect(() => {

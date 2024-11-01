@@ -9,6 +9,7 @@ import { BaseInfoIcon } from "@/components/Base/Icons/StyledIcons";
 import { BaseErrorBox, BaseInfoBox } from "@/components/Base/Boxes/StyledBoxes";
 import { TEST_TOKEN_PUBLIC_KEY } from "@/utils/addresses";
 import PageContainer from "@/components/Base/PageContainer";
+import useAnchorProviderContext from "@/provider/anchorProvider";
 
 const FaucetIndex: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ const FaucetIndex: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { publicKey } = useWallet();
   const anchorWallet = useAnchorWallet();
+  const { provider, faucetProgram } = useAnchorProviderContext();
 
   useEffect(() => {
     if (successMessage) {
@@ -39,12 +41,15 @@ const FaucetIndex: FC = () => {
     if (!publicKey || !anchorWallet) {
       return;
     }
+
     setLoading(true);
     try {
       const res = await faucetTestToken(
         publicKey,
         TEST_TOKEN_PUBLIC_KEY,
-        anchorWallet
+        anchorWallet,
+        provider,
+        faucetProgram
       );
       console.log("Tx signature:", res);
       setSuccessMessage(true);

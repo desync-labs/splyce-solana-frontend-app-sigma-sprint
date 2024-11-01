@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import "@/theme/globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const DynamicProviders = dynamic(
   () => import("@/provider").then((mod) => mod.Providers),
@@ -13,6 +14,7 @@ const AppNavLayout = dynamic(
 
 const MyApp = ({ Component, pageProps, ...props }: AppProps) => {
   console.log("_app props: ", props);
+
   return (
     <>
       <Head>
